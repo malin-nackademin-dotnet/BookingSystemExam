@@ -11,7 +11,10 @@ public class BookingService(IBookingRepository repository)
             ["Birken"] = new("Birken", 8),
             ["Eken"] = new("Eken", 12)
         };
-
+    public IReadOnlyCollection<Room> GetRooms()
+    {
+        return [.. Rooms.Values];
+    }
     public IReadOnlyList<Booking> GetActiveBookings()
     {
         var bookings = repository.GetAll();
@@ -27,11 +30,10 @@ public class BookingService(IBookingRepository repository)
 
     public IReadOnlyList<Booking> Search(string searchTerm)
     {
-        return repository.GetAll()
+        return [.. repository.GetAll()
             .Where(booking =>
                 !booking.IsCancelled &&
-                booking.CustomerName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
-            .ToList();
+                booking.CustomerName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))];
     }
 
     public BookingResult Create(Booking booking)

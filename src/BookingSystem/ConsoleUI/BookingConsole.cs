@@ -60,10 +60,8 @@ public class BookingConsole(BookingService service)
 
     private void CreateBooking()
     {
-        Console.Write("Customer name: ");
-        var customerName = Console.ReadLine() ?? string.Empty;
-        Console.Write("Room (Aspen, Birken or Eken): ");
-        var roomName = Console.ReadLine() ?? string.Empty;
+        var customerName = ReadName("Customer name: ");
+        var roomName = ReadRoom("Room (Aspen, Birken or Eken): ");
         var date = ReadDate("Date (yyyy-MM-dd): ");
         var startTime = ReadTime("Start time (HH:mm): ");
         var endTime = ReadTime("End time (HH:mm): ");
@@ -115,6 +113,41 @@ public class BookingConsole(BookingService service)
             Console.WriteLine($"Date: {booking.Date:yyyy-MM-dd}");
             Console.WriteLine($"Time: {booking.StartTime:HH\\:mm}-{booking.EndTime:HH\\:mm}");
             Console.WriteLine($"Participants: {booking.Participants}");
+        }
+    }
+
+    private static string ReadName(string prompt)
+    {
+        while (true)
+        {
+            Console.Write(prompt);
+
+            string name = Console.ReadLine() ?? string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                return name;
+            }
+
+           Console.WriteLine("Name can not be empty.");
+        }
+    }
+
+    private string ReadRoom(string prompt)
+    {
+        while (true)
+        {
+            Console.Write(prompt);
+
+            string roomName = Console.ReadLine() ?? string.Empty;
+            var room = service.GetRooms().FirstOrDefault(room => room.Name.Equals(roomName, StringComparison.OrdinalIgnoreCase));
+
+            if (room is not null)
+            {
+                return room.Name;
+            }
+
+            Console.WriteLine("Select a valid room.");
         }
     }
 
