@@ -14,10 +14,13 @@ public class BookingService(IBookingRepository repository)
 
     public IReadOnlyList<Booking> GetActiveBookings()
     {
-        // This method has not been completed.
         var bookings = repository.GetAll();
 
-        var activeBookings = bookings.Where(booking => !booking.IsCancelled).ToList();
+        var activeBookings = bookings
+            .Where(booking => !booking.IsCancelled)
+            .OrderBy(booking => booking.Date)
+            .ThenBy(booking => booking.StartTime)
+            .ToList();
 
         return activeBookings;
     }
