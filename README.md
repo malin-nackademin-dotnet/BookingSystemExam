@@ -9,6 +9,7 @@ A console application for managing meeting room bookings, built with C# and .NET
 - Validation for booking details, room capacity, and times
 - Prevent overlapping booking times for the same room
 - Cancel bookings bookings
+- Store bookings in a JSON file to preserve data between application runs
 
 ## Project structure
 ```bash
@@ -19,12 +20,12 @@ BookingSystemExam/
 │       ├── Services/
 │       ├── Repositories/
 │       ├── ConsoleUI/
-│       ├── docs/
 │       ├── data/
 │       └── Program.cs
 ├── tests/
 │   └── BookingSystem.Tests/
 ├── .gitignore
+├── docs/
 └── README.md
 ```
 
@@ -56,4 +57,5 @@ dotnet run --project src/BookingSystem
 ```bash
 dotnet test
 ```
-
+## Debugging Documentation
+See DEBUGGING.md for a description of a bug, its root cause, the implemented fix, and the tests used to verify the solution.
