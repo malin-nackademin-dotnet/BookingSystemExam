@@ -65,9 +65,7 @@ public class BookingConsole(BookingService service)
         var date = ReadDate("Date (yyyy-MM-dd): ");
         var startTime = ReadTime("Start time (HH:mm): ");
         var endTime = ReadEndTime("End time (HH:mm): ", startTime);
-
-        Console.Write("Participants: ");
-        var participants = int.Parse(Console.ReadLine() ?? string.Empty);
+        var participants = ReadParticipants("Participants: ", roomName);
 
         var booking = new Booking
         {
@@ -203,6 +201,30 @@ public class BookingConsole(BookingService service)
             }
 
             Console.WriteLine("Endtime must be later then starttime");
+        }
+    }
+
+    private int ReadParticipants(string prompt, string roomName)
+    {
+        var room = service.GetRooms().First(room => room.Name.Equals(roomName, StringComparison.OrdinalIgnoreCase));
+        
+        while (true)
+        {
+            Console.Write(prompt);
+            string input = Console.ReadLine() ?? string.Empty;
+
+            if (!int.TryParse(input, out int participants))
+            {
+                Console.WriteLine("You must enter numbers only.");
+                continue;
+            }
+
+            if (participants > 1 && participants <= room.Capacity)
+            {
+                return participants;
+            }
+
+            Console.WriteLine($"{roomName} has a maximum capacity of {room.Capacity}.");
         }
     }
 }
