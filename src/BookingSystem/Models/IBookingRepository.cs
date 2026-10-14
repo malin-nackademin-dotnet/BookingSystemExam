@@ -1,6 +1,4 @@
-using BookingSystem.Models;
-
-namespace BookingSystem.Repositories;
+namespace BookingSystem.Models;
 
 public interface IBookingRepository
 {

@@ -1,4 +1,5 @@
 using BookingSystem.Models;
+using BookingSystem.Repositories;
 using BookingSystem.Services;
 
 namespace BookingSystem.Tests;

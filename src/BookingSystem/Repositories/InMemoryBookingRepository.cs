@@ -1,7 +1,6 @@
 using BookingSystem.Models;
-using BookingSystem.Repositories;
 
-namespace BookingSystem.Tests;
+namespace BookingSystem.Repositories;
 
 public class InMemoryBookingRepository(params Booking[] bookings) : IBookingRepository
 {
