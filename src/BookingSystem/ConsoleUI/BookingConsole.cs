@@ -64,7 +64,7 @@ public class BookingConsole(BookingService service)
         var roomName = ReadRoom("Room (Aspen, Birken or Eken): ");
         var date = ReadDate("Date (yyyy-MM-dd): ");
         var startTime = ReadTime("Start time (HH:mm): ");
-        var endTime = ReadTime("End time (HH:mm): ");
+        var endTime = ReadEndTime("End time (HH:mm): ", startTime);
 
         Console.Write("Participants: ");
         var participants = int.Parse(Console.ReadLine() ?? string.Empty);
@@ -190,4 +190,20 @@ public class BookingConsole(BookingService service)
             Console.WriteLine("Enter the time using HH:mm.");
         }
     }
+
+    private static TimeOnly ReadEndTime(string prompt, TimeOnly startTime)
+    {
+        while (true)
+        {
+            var endTime = ReadTime(prompt);
+
+            if (endTime >= startTime)
+            {
+                return endTime;
+            }
+
+            Console.WriteLine("Endtime must be later then starttime");
+        }
+    }
 }
+
